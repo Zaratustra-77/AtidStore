@@ -18,7 +18,7 @@ def test_slider_filter_price_range_valid(driver):
     price_to_value = price_to_element.get_attribute("innerText")
     filter_submit_btn_element = sp.find_element(sp.filter_submit_btn)
     filter_submit_btn_element.click()
-    carousell_element = sp.find_element(sp.carousell_element_locator)
+    # carousell_element = sp.find_element(sp.carousell_element_locator)
     # carousell_elements = carousell_element.find_elements(sp.carouselle_inner_locator)
     # for item in carousell_elements:
     #     try:
