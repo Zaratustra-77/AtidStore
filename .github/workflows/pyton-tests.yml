@@ -1,3 +1,4 @@
+# .github/workflows/python-tests.yml
 name: Python Tests
 
 on:
@@ -34,13 +35,14 @@ jobs:
       - name: Install Firefox and Geckodriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y firefox dbus-x11 libgtk-3-0 libasound2 libdbus-glib-1-2 libxt6 libxcomposite1
+          sudo apt-get install -y firefox dbus-x11 libgtk-3-0 libasound2
+          sudo apt-get install -y xvfb dbus-x11 libgtk-3-0 libdbus-glib-1-2 libxt6 libxcomposite1 libasound2
           GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep "tag_name" | cut -d '"' -f 4)
           wget "https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz"
           tar -xzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
           sudo mv geckodriver /usr/local/bin/
           rm geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
 
-      - name: Run tests with xvfb
+      - name: Run tests
         run: |
-          xvfb-run --auto-servernum pytest --cmdopt=${{ matrix.browser }}
+          pytest --cmdopt=${{ matrix.browser }}  # Use the browser from the matrix
