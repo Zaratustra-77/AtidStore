@@ -3,7 +3,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FOP
 from selenium.webdriver.chrome.options import Options as COP
-
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.firefox.service import Service as FireFoxService
@@ -13,6 +13,8 @@ os.environ['WDM_LOCAL'] = '1'
 
 @pytest.fixture(scope="function",params=["chrome","firefox"])
 def driver(request):
+    firefox_capabilities = DesiredCapabilities.FIREFOX.copy()
+    firefox_capabilities['timeouts'] = {"implicit": 120000, "pageLoad": 120000, "script": 30000}
     # browser = request.param
     selected_browser = request.config.getoption("--cmdopt")
     if selected_browser and selected_browser != request.param:
