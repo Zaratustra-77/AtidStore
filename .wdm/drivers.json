@@ -1,0 +1,14 @@
+{
+    "win64_chromedriver_130.0.6723.91_for_130.0.6723": {
+        "timestamp": "05/11/2024",
+        "binary_path": "C:\\Users\\Elik\\PycharmProjects\\atid_store\\.wdm\\drivers\\chromedriver\\win64\\130.0.6723.91\\chromedriver-win32/chromedriver.exe"
+    },
+    "win64_geckodriver_v0.35.0_for_132.0": {
+        "timestamp": "06/11/2024",
+        "binary_path": "C:\\Users\\Elik\\PycharmProjects\\atid_store\\.wdm\\drivers\\geckodriver\\win64\\v0.35.0\\geckodriver.exe"
+    },
+    "win64_chromedriver_130.0.6723.93_for_130.0.6723": {
+        "timestamp": "06/11/2024",
+        "binary_path": "C:\\Users\\Elik\\PycharmProjects\\atid_store\\.wdm\\drivers\\chromedriver\\win64\\130.0.6723.93\\chromedriver-win32/chromedriver.exe"
+    }
+}
