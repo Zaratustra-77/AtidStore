@@ -4,10 +4,10 @@ name: Python Tests
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the main branch
+      - master
   pull_request:
     branches:
-      - master  # Trigger the workflow on pull requests to the main branch
+      - master
 
 jobs:
   test:
@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10]  # Specify Python versions to test against
+        python-version: [3.11]  # Specify Python versions to test against
 
     steps:
       - name: Check out code
@@ -30,6 +30,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Install dependencies for Firefox
+          sudo apt-get update
+          sudo apt-get install -y firefox-geckodriver
 
       - name: Run tests
         run: |
