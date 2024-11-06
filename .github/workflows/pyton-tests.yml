@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.11]  # Specify Python versions to test against
+        python-version: [3.8, 3.9, 3.10]
 
     steps:
       - name: Check out code
@@ -30,9 +30,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          # Install dependencies for Firefox
+          
+      - name: Install Firefox and Geckodriver
+        run: |
           sudo apt-get update
-          sudo apt-get install -y firefox-geckodriver
+          sudo apt-get install -y firefox  # Install Firefox
+          GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep "tag_name" | cut -d '"' -f 4)
+          wget "https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz"
+          tar -xzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
+          rm geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
 
       - name: Run tests
         run: |
