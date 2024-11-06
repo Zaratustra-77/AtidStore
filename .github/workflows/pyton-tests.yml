@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Updated to v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4  # Updated to v4
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -34,7 +34,7 @@ jobs:
       - name: Install Firefox and Geckodriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y firefox  # Install Firefox
+          sudo apt-get install -y firefox dbus-x11 libgtk-3-0 libasound2  # Install Firefox and dependencies for headless mode
           GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep "tag_name" | cut -d '"' -f 4)
           wget "https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz"
           tar -xzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
@@ -42,5 +42,7 @@ jobs:
           rm geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
 
       - name: Run tests
+        env:
+          DISPLAY: ":99"  # Set display environment for headless mode
         run: |
           pytest  # Run all tests with pytest
