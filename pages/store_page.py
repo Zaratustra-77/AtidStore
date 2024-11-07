@@ -34,8 +34,7 @@ class StorePage(BasePage):
                                             "> span:nth-child(3)")
 
     base_url_store = "https://atid.store/store/"
-    carousell_element_locator = (By.CSS_SELECTOR, "#main > div > ul")
-    carouselle_inner_locator = (By.TAG_NAME, "li")
+    product_list_items_locator = (By.CSS_SELECTOR, "ul.products li.product")
 
 
     def enter_username(self, username):

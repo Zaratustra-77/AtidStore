@@ -18,27 +18,17 @@ def test_slider_filter_price_range_valid(driver):
     price_to_value = price_to_element.get_attribute("innerText")
     filter_submit_btn_element = sp.find_element(sp.filter_submit_btn)
     filter_submit_btn_element.click()
-    # carousell_element = sp.find_element(sp.carousell_element_locator)
-    # carousell_elements = carousell_element.find_elements(sp.carouselle_inner_locator)
-    # for item in carousell_elements:
-    #     try:
-    #         # Find the discounted price within each `<li>` item
-    #         price_element = item.find_element(*SP.carouselle_inner_locator)
-    #         price_text = price_element.text
-    #
-    #         # Extract and print the numeric part of the price
-    #         price = float(price_text.split()[0])  # Convert to float if needed
-    #         print(f"Discounted Price: {price}")
-    #
-    #     except Exception as e:
-    #         print(f"Price not found in this item: {e}")
+    product_list_items_element = sp.find_element(sp.product_list_items_locator)
+    product_list_items_elements = product_list_items_element.find_elements()
+    for item in product_list_items_elements:
+        try:
+            # Find the discounted price within each `<li>` item
+            ins_tag = item.find_element(By.TAG_NAME,'ins')
+            price = ins_tag.find_element(By.CSS_SELECTOR, 'span.woocommerce-Price-amount bdi').text
+            print(f"Product sale Price: {price}")
+
+        except Exception as e:
+            print(f"Price not found in this item: {e}")
 
     time.sleep(5)  # המתנה קטנה כדי לראות את ההזזה
 
-#
-# //*[@id="main"]/div/ul/li[1]/div[2]/span[2]/span/bdi
-# //*[@id="main"]/div/ul/li[2]/div[2]/span[2]/ins/span/bdi
-# //*[@id="main"]/div/ul/li[3]/div[2]/span[2]/ins/span/bdi
-# //*[@id="main"]/div/ul/li[2]/div[2]/span[2]/ins/span/bdi
-
-# <bdi>45.00&nbsp;<span class="woocommerce-Price-currencySymbol">₪</span></bdi>
